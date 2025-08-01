@@ -15,34 +15,14 @@
       "system": false,
       "name_i18n": {"en-US": "Type of Batch"},
       "name": "Type of Batch",
-      "dateModified": "2025-07-30T05:33:13Z",
+      "dateModified": "2025-07-31T06:04:11Z",
       "id": 31555,
       "listTypeEntries": [
         {
           "dateCreated": "2025-07-23T05:31:45Z",
-          "name_i18n": {"en-US": "Object"},
-          "name": "Object",
-          "dateModified": "2025-07-30T05:33:13Z",
-          "id": 31556,
-          "type": "",
-          "key": "Object",
-          "externalReferenceCode": "b4554cba-86e3-42e6-1e40-5fda5f398151"
-        },
-        {
-          "dateCreated": "2025-07-23T05:31:45Z",
-          "name_i18n": {"en-US": "Object Folder"},
-          "name": "Object Folder",
-          "dateModified": "2025-07-30T05:33:13Z",
-          "id": 31557,
-          "type": "",
-          "key": "ObjectFolder",
-          "externalReferenceCode": "49b46d12-1a52-da3a-f2cd-143bb2f63f03"
-        },
-        {
-          "dateCreated": "2025-07-23T05:31:45Z",
           "name_i18n": {"en-US": "Pick List"},
           "name": "Pick List",
-          "dateModified": "2025-07-30T05:33:13Z",
+          "dateModified": "2025-07-31T06:04:12Z",
           "id": 31558,
           "type": "",
           "key": "PickList",
@@ -52,11 +32,31 @@
           "dateCreated": "2025-07-23T05:31:45Z",
           "name_i18n": {"en-US": "Roles"},
           "name": "Roles",
-          "dateModified": "2025-07-30T05:33:13Z",
+          "dateModified": "2025-07-31T06:04:12Z",
           "id": 31559,
           "type": "",
           "key": "userRoles",
           "externalReferenceCode": "cd3cbe5b-8f6e-7519-f31f-767a4ec170b2"
+        },
+        {
+          "dateCreated": "2025-07-31T06:06:52Z",
+          "name_i18n": {"en-US": "Object"},
+          "name": "Object",
+          "dateModified": "2025-07-31T06:06:52Z",
+          "id": 44068,
+          "type": "",
+          "key": "objectDefinition",
+          "externalReferenceCode": "77ca2cc2-ab47-cd2f-5757-de93a3608c5e"
+        },
+        {
+          "dateCreated": "2025-07-31T06:07:55Z",
+          "name_i18n": {"en-US": "Object Folder"},
+          "name": "Object Folder",
+          "dateModified": "2025-07-31T06:07:55Z",
+          "id": 44069,
+          "type": "",
+          "key": "objectFolderDefinition",
+          "externalReferenceCode": "36cac938-3281-fb16-0aeb-0c74cd9b06d7"
         }
       ],
       "externalReferenceCode": "7abade5b-e304-92ae-0cce-1f2843780ab3"
