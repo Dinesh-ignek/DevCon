@@ -1,0 +1,84 @@
+{
+  "configuration": {
+    "taskItemDelegateName": "DEFAULT",
+    "className": "com.liferay.headless.admin.list.type.dto.v1_0.ListTypeDefinition",
+    "parameters": {
+      "containsHeaders": "true",
+      "updateStrategy": "UPDATE",
+      "createStrategy": "UPSERT",
+      "onErrorFail": "false"
+    }
+  },
+  "items": [
+    {
+      "dateCreated": "2025-07-23T05:31:45Z",
+      "system": false,
+      "name_i18n": {"en-US": "Type of Batch"},
+      "name": "Type of Batch",
+      "dateModified": "2025-07-30T05:33:13Z",
+      "id": 31555,
+      "listTypeEntries": [
+        {
+          "dateCreated": "2025-07-23T05:31:45Z",
+          "name_i18n": {"en-US": "Object"},
+          "name": "Object",
+          "dateModified": "2025-07-30T05:33:13Z",
+          "id": 31556,
+          "type": "",
+          "key": "Object",
+          "externalReferenceCode": "b4554cba-86e3-42e6-1e40-5fda5f398151"
+        },
+        {
+          "dateCreated": "2025-07-23T05:31:45Z",
+          "name_i18n": {"en-US": "Object Folder"},
+          "name": "Object Folder",
+          "dateModified": "2025-07-30T05:33:13Z",
+          "id": 31557,
+          "type": "",
+          "key": "ObjectFolder",
+          "externalReferenceCode": "49b46d12-1a52-da3a-f2cd-143bb2f63f03"
+        },
+        {
+          "dateCreated": "2025-07-23T05:31:45Z",
+          "name_i18n": {"en-US": "Pick List"},
+          "name": "Pick List",
+          "dateModified": "2025-07-30T05:33:13Z",
+          "id": 31558,
+          "type": "",
+          "key": "PickList",
+          "externalReferenceCode": "33d04822-ad64-294f-580e-0652f6519aac"
+        },
+        {
+          "dateCreated": "2025-07-23T05:31:45Z",
+          "name_i18n": {"en-US": "Roles"},
+          "name": "Roles",
+          "dateModified": "2025-07-30T05:33:13Z",
+          "id": 31559,
+          "type": "",
+          "key": "userRoles",
+          "externalReferenceCode": "cd3cbe5b-8f6e-7519-f31f-767a4ec170b2"
+        }
+      ],
+      "externalReferenceCode": "7abade5b-e304-92ae-0cce-1f2843780ab3"
+    },
+    {
+      "dateCreated": "2025-07-23T05:31:46Z",
+      "system": false,
+      "name_i18n": {"en-US": "Type Client Extension"},
+      "name": "Type Client Extension",
+      "dateModified": "2025-07-30T05:33:14Z",
+      "id": 31560,
+      "listTypeEntries": [{
+        "dateCreated": "2025-07-23T05:31:46Z",
+        "name_i18n": {"en-US": "Batch"},
+        "name": "Batch",
+        "dateModified": "2025-07-30T05:33:14Z",
+        "id": 31561,
+        "type": "",
+        "key": "Batch",
+        "externalReferenceCode": "cd88c5d9-18bb-3614-e7b5-804dc515310a"
+      }],
+      "externalReferenceCode": "0909a305-623e-16ef-aa6e-aa5f605bbecf"
+    }
+  ]
+}

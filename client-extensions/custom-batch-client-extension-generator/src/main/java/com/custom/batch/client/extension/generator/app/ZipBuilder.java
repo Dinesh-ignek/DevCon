@@ -16,8 +16,8 @@ import org.json.JSONObject;
 public class ZipBuilder {
 
 	private static final Map<String, String> BATCH_TYPE_MAPPING = Map.of("picklist",
-			"00-picklist.batch-engine-data.json", "objectfolder", "01-objectfolder.batch-engine-data.json", "userroles",
-			"03-user-role.batch-engine-data.json", "object", "object-definition.batch-engine-data.json");
+			"00-picklist.batch-engine-data.json", "objectfolderdefinition", "01-objectfolder.batch-engine-data.json", "userroles",
+			"03-user-role.batch-engine-data.json", "objectdefinition", "object-definition.batch-engine-data.json");
 
 	public static File build(String extensionName, Map<String, BatchData> batchDataMap, String domain, String protocol)
 			throws IOException {
@@ -55,46 +55,51 @@ public class ZipBuilder {
 	}
 
 	private static void createBatchConfigFiles(File batchDir, Map<String, BatchData> dataMap) throws IOException {
-		for (Map.Entry<String, BatchData> entry : dataMap.entrySet()) {
-			String type = entry.getKey();
-			String fileName = BATCH_TYPE_MAPPING.get(type);
-			if (fileName == null)
-				continue;
+	    for (Map.Entry<String, BatchData> entry : dataMap.entrySet()) {
+	        String type = entry.getKey();
+	        String fileName = BATCH_TYPE_MAPPING.get(type);
+	        if (fileName == null)
+	            continue;
 
-			BatchData data = entry.getValue();
-			File file = new File(batchDir, fileName);
+	        BatchData data = entry.getValue();
+	        File file = new File(batchDir, fileName);
 
-			JSONArray filteredItems = new JSONArray();
+	        JSONArray filteredItems = new JSONArray();
 
-			for (int i = 0; i < data.getItems().length(); i++) {
-				JSONObject item = data.getItems().getJSONObject(i);
+	        for (int i = 0; i < data.getItems().length(); i++) {
+	            JSONObject item = data.getItems().getJSONObject(i);
+	            
+	          
+	            if ("com.liferay.object.admin.rest.dto.v1_0.ObjectFolder".equals(data.getClassName()) 
+	                    && item.optBoolean("system", false)) {
+	                continue;
+	            }
+	            
+	          
+	            if ("com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition".equals(data.getClassName())
+	                    && item.optBoolean("system", false)) {
+	                continue;
+	            }
+	            
+	            JSONObject cleanedItem = new JSONObject(item.toString());
+	            cleanedItem.remove("actions");
 
-				
-				if ("com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition".equals(data.getClassName())
-						&& item.optBoolean("system", false)) {
-					continue;
-				}
-				
-				JSONObject cleanedItem = new JSONObject(item.toString());
-				cleanedItem.remove("actions");
+	            filteredItems.put(cleanedItem);
+	        }
 
-				filteredItems.put(cleanedItem);
-			}
+	        JSONObject config = new JSONObject()
+	                .put("configuration",
+	                        new JSONObject().put("className", data.getClassName()).put("parameters",
+	                                new JSONObject().put("containsHeaders", "true").put("createStrategy", "UPSERT")
+	                                        .put("onErrorFail", "false").put("updateStrategy", "UPDATE"))
+	                                .put("taskItemDelegateName", "DEFAULT"))
+	                .put("items", filteredItems);
 
-			JSONObject config = new JSONObject()
-					.put("configuration",
-							new JSONObject().put("className", data.getClassName()).put("parameters",
-									new JSONObject().put("containsHeaders", "true").put("createStrategy", "UPSERT")
-											.put("onErrorFail", "false").put("updateStrategy", "UPDATE"))
-									.put("taskItemDelegateName", "DEFAULT"))
-					.put("items", filteredItems);
-
-			try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
-				writer.write(config.toString(2));
-			}
-		}
+	        try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
+	            writer.write(config.toString(2));
+	        }
+	    }
 	}
-
 	private static void addDirToZip(File dir, ZipOutputStream zos, String basePath) throws IOException {
 		File[] files = dir.listFiles();
 		if (files == null)

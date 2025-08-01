@@ -31,7 +31,6 @@ public class ObjectActionRestController extends BaseRestController {
 		JSONObject requestJson = new JSONObject(json);
 		JSONObject objectEntry = requestJson.getJSONObject("objectEntry");
 		JSONObject values = objectEntry.getJSONObject("values");
-
 		String extensionName = values.getString("clientExtensionName").replaceAll("\\s+", StringPool.MINUS);
 		String[] batchItems = values.getString("batch").split("\\s*,\\s*");
 		String erc = objectEntry.getString("externalReferenceCode");

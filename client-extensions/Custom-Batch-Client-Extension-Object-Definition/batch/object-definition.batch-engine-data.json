@@ -1,0 +1,396 @@
+{
+	"configuration": {
+		"taskItemDelegateName": "DEFAULT",
+		"className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition",
+		"parameters": {
+			"containsHeaders": "true",
+			"updateStrategy": "UPDATE",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false"
+		}
+	},
+	"items": [
+		{
+			"positionY": 0,
+			"objectDefinition": {
+				"enableComments": false,
+				"objectRelationships": [],
+				"objectFolderExternalReferenceCode": "1f8b0a11-4017-e209-abe4-dab839f43dbf",
+				"enableCategorization": true,
+				"accountEntryRestrictedObjectFieldName": "",
+				"className": "com.liferay.object.model.ObjectDefinition#E5M8",
+				"objectActions": [
+					{
+						"conditionExpression": "",
+						"objectActionExecutorKey": "function#custom-batch-client-extension-generator-etc-spring-boot-object-action",
+						"errorMessage": {
+							
+						},
+						"active": true,
+						"description": "",
+						"label": {
+							"en_US": "add"
+						},
+						"externalReferenceCode": "80527bcd-f67f-dcdc-29a1-4c022dcb2ed6",
+						"system": false,
+						"objectActionTriggerKey": "onAfterAdd",
+						"name": "add",
+						"parameters": {
+							
+						},
+						"status": {
+							"label_i18n": "Never Ran",
+							"code": 0,
+							"label": "never-ran"
+						}
+					}
+				],
+				"enableLocalization": false,
+				"accountEntryRestricted": false,
+				"externalReferenceCode": "custom-client-extension",
+				"objectFields": [
+					{
+						"indexed": false,
+						"localized": false,
+						"objectFieldSettings": [],
+						"readOnly": "true",
+						"DBType": "String",
+						"label": {
+							"en_US": "Author"
+						},
+						"type": "String",
+						"required": false,
+						"externalReferenceCode": "ea945124-6d73-1c1c-5f3d-e858090a93c6",
+						"indexedAsKeyword": false,
+						"system": true,
+						"indexedLanguageId": "",
+						"unique": false,
+						"name": "creator",
+						"state": false,
+						"businessType": "Text",
+						"readOnlyConditionExpression": ""
+					},
+					{
+						"indexed": false,
+						"localized": false,
+						"objectFieldSettings": [],
+						"readOnly": "true",
+						"DBType": "Date",
+						"label": {
+							"en_US": "Create Date"
+						},
+						"type": "Date",
+						"required": false,
+						"externalReferenceCode": "2c437628-5160-9a70-ed71-56b28c10e042",
+						"indexedAsKeyword": false,
+						"system": true,
+						"indexedLanguageId": "",
+						"unique": false,
+						"name": "createDate",
+						"state": false,
+						"businessType": "Date",
+						"readOnlyConditionExpression": ""
+					},
+					{
+						"indexed": false,
+						"localized": false,
+						"objectFieldSettings": [],
+						"readOnly": "false",
+						"DBType": "String",
+						"label": {
+							"en_US": "External Reference Code"
+						},
+						"type": "String",
+						"required": false,
+						"externalReferenceCode": "42413e81-620d-754f-441a-3245bab59aaf",
+						"indexedAsKeyword": false,
+						"system": true,
+						"indexedLanguageId": "",
+						"unique": false,
+						"name": "externalReferenceCode",
+						"state": false,
+						"businessType": "Text",
+						"readOnlyConditionExpression": ""
+					},
+					{
+						"indexed": true,
+						"localized": false,
+						"objectFieldSettings": [],
+						"readOnly": "true",
+						"DBType": "Long",
+						"label": {
+							"en_US": "ID"
+						},
+						"type": "Long",
+						"required": false,
+						"externalReferenceCode": "883444f7-a7cf-fa7c-453d-6644f57d88ec",
+						"indexedAsKeyword": true,
+						"system": true,
+						"indexedLanguageId": "",
+						"unique": false,
+						"name": "id",
+						"state": false,
+						"businessType": "LongInteger",
+						"readOnlyConditionExpression": ""
+					},
+					{
+						"indexed": false,
+						"localized": false,
+						"objectFieldSettings": [],
+						"readOnly": "true",
+						"DBType": "Date",
+						"label": {
+							"en_US": "Modified Date"
+						},
+						"type": "Date",
+						"required": false,
+						"externalReferenceCode": "83f37a63-1b9d-a21d-10a9-3b57c1248061",
+						"indexedAsKeyword": false,
+						"system": true,
+						"indexedLanguageId": "",
+						"unique": false,
+						"name": "modifiedDate",
+						"state": false,
+						"businessType": "Date",
+						"readOnlyConditionExpression": ""
+					},
+					{
+						"indexed": false,
+						"localized": false,
+						"objectFieldSettings": [],
+						"readOnly": "true",
+						"DBType": "Integer",
+						"label": {
+							"en_US": "Status"
+						},
+						"type": "Integer",
+						"required": false,
+						"externalReferenceCode": "39b26dc0-fc95-60d4-1cc1-46641b169722",
+						"indexedAsKeyword": false,
+						"system": true,
+						"indexedLanguageId": "",
+						"unique": false,
+						"name": "status",
+						"state": false,
+						"businessType": "Text",
+						"readOnlyConditionExpression": ""
+					},
+					{
+						"indexed": true,
+						"localized": false,
+						"objectFieldSettings": [],
+						"readOnly": "false",
+						"DBType": "String",
+						"label": {
+							"en_US": "Client Extension Name"
+						},
+						"type": "String",
+						"required": true,
+						"externalReferenceCode": "28b3588f-db3f-f50e-9f06-fb4ee0790ac7",
+						"indexedAsKeyword": false,
+						"system": false,
+						"indexedLanguageId": "en_US",
+						"unique": false,
+						"name": "clientExtensionName",
+						"state": false,
+						"businessType": "Text",
+						"readOnlyConditionExpression": ""
+					},
+					{
+						"listTypeDefinitionExternalReferenceCode": "7abade5b-e304-92ae-0cce-1f2843780ab3",
+						"indexed": true,
+						"localized": false,
+						"objectFieldSettings": [],
+						"readOnly": "false",
+						"DBType": "String",
+						"label": {
+							"en_US": "Batch"
+						},
+						"type": "String",
+						"required": false,
+						"externalReferenceCode": "56205019-2a5d-fafb-56f3-974f9c4eb00c",
+						"indexedAsKeyword": false,
+						"system": false,
+						"indexedLanguageId": "en_US",
+						"unique": false,
+						"name": "batch",
+						"state": false,
+						"businessType": "MultiselectPicklist",
+						"readOnlyConditionExpression": ""
+					},
+					{
+						"indexed": true,
+						"localized": false,
+						"objectFieldSettings": [
+							{
+								"name": "acceptedFileExtensions",
+								"value": "jpeg, jpg, pdf, png,zip"
+							},
+							{
+								"name": "maximumFileSize",
+								"value": 100
+							},
+							{
+								"name": "fileSource",
+								"value": "userComputer"
+							},
+							{
+								"name": "showFilesInDocumentsAndMedia",
+								"value": false
+							}
+						],
+						"readOnly": "false",
+						"DBType": "Long",
+						"label": {
+							"en_US": "file"
+						},
+						"type": "Long",
+						"required": false,
+						"externalReferenceCode": "ae7d36be-0a68-4b53-5890-9377799f9cda",
+						"indexedAsKeyword": false,
+						"system": false,
+						"indexedLanguageId": "en_US",
+						"unique": false,
+						"name": "file",
+						"state": false,
+						"businessType": "Attachment",
+						"readOnlyConditionExpression": ""
+					}
+				],
+				"restContextPath": "/o/c/clientextensions",
+				"scope": "company",
+				"portlet": true,
+				"modifiable": true,
+				"parameterRequired": false,
+				"enableObjectEntryHistory": false,
+				"titleObjectFieldName": "id",
+				"objectValidationRules": [],
+				"active": true,
+				"defaultLanguageId": "en_US",
+				"enableIndexSearch": true,
+				"label": {
+					"en_US": "Client Extension"
+				},
+				"panelCategoryKey": "control_panel.sites",
+				"pluralLabel": {
+					"en_US": "Client Extensions"
+				},
+				"objectLayouts": [
+					{
+						"objectLayoutTabs": [
+							{
+								"name": {
+									"en_US": "ClientExtension"
+								},
+								"objectLayoutBoxes": [
+									{
+										"objectLayoutRows": [
+											{
+												"objectLayoutColumns": [
+													{
+														"objectFieldName": "clientExtensionName",
+														"size": 12,
+														"priority": 0
+													}
+												],
+												"priority": 0
+											},
+											{
+												"objectLayoutColumns": [
+													{
+														"objectFieldName": "batch",
+														"size": 12,
+														"priority": 0
+													}
+												],
+												"priority": 0
+											}
+										],
+										"collapsable": false,
+										"name": {
+											"en_US": "Details"
+										},
+										"priority": 0,
+										"type": "regular"
+									}
+								],
+								"priority": 0
+							}
+						],
+						"objectDefinitionExternalReferenceCode": "custom-client-extension",
+						"name": {
+							"en_US": "view"
+						},
+						"defaultObjectLayout": true
+					}
+				],
+				"system": false,
+				"objectViews": [
+					{
+						"objectDefinitionExternalReferenceCode": "custom-client-extension",
+						"name": {
+							"en_US": "view"
+						},
+						"objectViewFilterColumns": [],
+						"objectViewSortColumns": [],
+						"defaultObjectView": true,
+						"objectViewColumns": [
+							{
+								"objectFieldName": "id",
+								"label": {
+									"en_US": "ID"
+								},
+								"priority": 0
+							},
+							{
+								"objectFieldName": "status",
+								"label": {
+									"en_US": "Status"
+								},
+								"priority": 1
+							},
+							{
+								"objectFieldName": "clientExtensionName",
+								"label": {
+									"en_US": "Client Extension Name"
+								},
+								"priority": 2
+							},
+							{
+								"objectFieldName": "batch",
+								"label": {
+									"en_US": "Batch"
+								},
+								"priority": 3
+							},
+							{
+								"objectFieldName": "file",
+								"label": {
+									"en_US": "file"
+								},
+								"priority": 4
+							},
+							{
+								"objectFieldName": "externalReferenceCode",
+								"label": {
+									"en_US": "External Reference Code"
+								},
+								"priority": 5
+							}
+						]
+					}
+				],
+				"enableObjectEntryDraft": false,
+				"name": "ClientExtension",
+				"status": {
+					"label_i18n": "Approved",
+					"code": 0,
+					"label": "approved"
+				}
+			},
+			"objectDefinitionExternalReferenceCode": "custom-client-extension",
+			"linkedObjectDefinition": false,
+			"positionX": 0
+		}
+	]
+}

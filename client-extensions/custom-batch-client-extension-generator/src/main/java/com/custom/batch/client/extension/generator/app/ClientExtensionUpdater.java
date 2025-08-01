@@ -1,6 +1,8 @@
 package com.custom.batch.client.extension.generator.app;
 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
@@ -29,15 +31,7 @@ public class ClientExtensionUpdater {
 		payload.put("clientExtensionName", extensionName);
 
 		
-		JSONArray batchArray = new JSONArray();
-		for (String item : batchItems) {
-			JSONObject batchObj = new JSONObject();
-			batchObj.put("key", item);
-			batchObj.put("name", item);
-			batchArray.put(batchObj);
-		}
-		payload.put("batch", batchArray);
-
+	
 		
 		String base64 = Base64.getEncoder().encodeToString(Files.readAllBytes(zipFile.toPath()));
 
@@ -55,7 +49,6 @@ public class ClientExtensionUpdater {
 
 		payload.put("file", fileJson);
 
-	
 		String apiURL = lxcDXPServerProtocol + "://" + lxcDXPMainDomain
 				+ "/o/c/clientextensions/by-external-reference-code/" + erc;
 
@@ -67,4 +60,6 @@ public class ClientExtensionUpdater {
 				.bodyToMono(String.class)
 				.block();
 	}
+	private static final Log _log = LogFactory.getLog(ClientExtensionUpdater.class);
+
 }

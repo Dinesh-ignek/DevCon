@@ -7,16 +7,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 public class BatchDataFetcher {
 
-	private static final Map<String, String> API_ENDPOINT_MAPPING = Map.of("picklist",
-			"/o/headless-admin-list-type/v1.0/list-type-definitions", "objectfolder",
-			"/o/object-admin/v1.0/object-folders", "userroles", "/o/headless-admin-user/v1.0/roles", "object",
-			"/o/object-admin/v1.0/object-definitions");
+	private static final Map<String, String> API_ENDPOINT_MAPPING = Map.of(
+			"picklist", "/o/headless-admin-list-type/v1.0/list-type-definitions", 
+			"objectfolderdefinition",  "/o/object-admin/v1.0/object-folders", 
+			"userroles",  "/o/headless-admin-user/v1.0/roles",
+			"objectdefinition",  "/o/object-admin/v1.0/object-definitions");
 
-	private static final Map<String, String> CLASS_NAME_MAPPING = Map.of("picklist",
-			"com.liferay.headless.admin.list.type.dto.v1_0.ListTypeDefinition", "objectfolder",
-			"com.liferay.object.admin.rest.dto.v1_0.ObjectFolder", "userroles",
-			"com.liferay.headless.admin.user.dto.v1_0.Role", "object",
-			"com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition");
+	private static final Map<String, String> CLASS_NAME_MAPPING = Map.of(
+			"picklist", "com.liferay.headless.admin.list.type.dto.v1_0.ListTypeDefinition", 
+			"objectfolderdefinition", "com.liferay.object.admin.rest.dto.v1_0.ObjectFolder",
+			"userroles", "com.liferay.headless.admin.user.dto.v1_0.Role", 
+			"objectdefinition", "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition");
 
 	public static Map<String, BatchData> fetch(WebClient webClient, String[] batchItems) {
 		Map<String, BatchData> result = new LinkedHashMap<>();

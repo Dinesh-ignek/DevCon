@@ -1,0 +1,14 @@
+assemble:
+  - from: batch
+    into: batch
+
+Custom-Batch-Client-Extension-Object-Definition:
+  name: Custom-Batch-Client-Extension-Object-Definition
+  oAuthApplicationHeadlessServer: Custom-Batch-Client-Extension-Object-Definition-oauth-application-headless-server
+  type: batch
+
+Custom-Batch-Client-Extension-Object-Definition-oauth-application-headless-server:
+  .serviceAddress: localhost:8080
+  .serviceScheme: http
+  name: Custom-Batch-Client-Extension-Object-Definition OAuth Application Headless Server
+  type: oAuthApplicationHeadlessServer
