@@ -1,5 +1,11 @@
-package com.custom.batch.client.extension.generator.app;
+package com.custom.batch.client.extension.generator.app.controller;
 
+import com.custom.batch.client.extension.generator.BatchDTO;
+import com.custom.batch.client.extension.generator.BatchDataFetcher;
+import com.custom.batch.client.extension.generator.ClientExtensionUpdater;
+import com.custom.batch.client.extension.generator.WebClientFactory;
+import com.custom.batch.client.extension.generator.ZipBuilder;
+import com.custom.batch.client.extension.generator.constant.BatchConstants;
 import com.liferay.client.extension.util.spring.boot.BaseRestController;
 import com.liferay.petra.string.StringPool;
 
@@ -29,15 +35,15 @@ public class ObjectActionRestController extends BaseRestController {
 	public ResponseEntity<String> post(@AuthenticationPrincipal Jwt jwt, @RequestBody String json) throws IOException {
 		
 		JSONObject requestJson = new JSONObject(json);
-		JSONObject objectEntry = requestJson.getJSONObject("objectEntry");
-		JSONObject values = objectEntry.getJSONObject("values");
-		String extensionName = values.getString("clientExtensionName").replaceAll("\\s+", StringPool.MINUS);
-		String[] batchItems = values.getString("batch").split("\\s*,\\s*");
-		String erc = objectEntry.getString("externalReferenceCode");
+		JSONObject objectEntry = requestJson.getJSONObject(BatchConstants.OBJECT_ENTRY);
+		JSONObject values = objectEntry.getJSONObject(BatchConstants.VALUES);
+		String extensionName = values.getString(BatchConstants.CLIENT_EXTENSION_NAME).replaceAll("\\s+", StringPool.MINUS);
+		String[] batchItems = values.getString(BatchConstants.BATCH).split("\\s*,\\s*");
+		String erc = objectEntry.getString(BatchConstants.EXTERNAL_REFERENCE_CODE);
 
 		WebClient webClient = WebClientFactory.create(jwt, lxcDXPMainDomain, lxcDXPServerProtocol);
 
-		Map<String, BatchData> batchDataMap = BatchDataFetcher.fetch(webClient, batchItems);
+		Map<String, BatchDTO> batchDataMap = BatchDataFetcher.fetch(webClient, batchItems);
 		File zipFile = ZipBuilder.build(extensionName, batchDataMap, lxcDXPMainDomain, lxcDXPServerProtocol);
 
 		ClientExtensionUpdater.updateClientExtension(

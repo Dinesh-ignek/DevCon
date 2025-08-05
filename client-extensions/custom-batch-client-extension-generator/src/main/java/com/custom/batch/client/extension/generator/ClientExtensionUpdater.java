@@ -1,4 +1,4 @@
-package com.custom.batch.client.extension.generator.app;
+package com.custom.batch.client.extension.generator;
 
 
 import org.apache.commons.logging.Log;
@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import com.custom.batch.client.extension.generator.constant.BatchConstants;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,19 +29,13 @@ public class ClientExtensionUpdater {
 	) throws IOException {
 
 		JSONObject payload = new JSONObject();
-		payload.put("externalReferenceCode", erc);
-		payload.put("clientExtensionName", extensionName);
-
-		
-	
-		
+		payload.put(BatchConstants.EXTERNAL_REFERENCE_CODE, erc);
+		payload.put(BatchConstants.CLIENT_EXTENSION_NAME, extensionName);
 		String base64 = Base64.getEncoder().encodeToString(Files.readAllBytes(zipFile.toPath()));
 
 		JSONObject fileJson = new JSONObject();
-		fileJson.put("externalReferenceCode", erc + "-zip");
+		fileJson.put(BatchConstants.EXTERNAL_REFERENCE_CODE, erc + "-zip");
 		fileJson.put("fileBase64", base64);
-		fileJson.put("fileURL", "");
-		fileJson.put("id", 0);
 		fileJson.put("name", zipFile.getName());
 
 	
@@ -50,7 +46,7 @@ public class ClientExtensionUpdater {
 		payload.put("file", fileJson);
 
 		String apiURL = lxcDXPServerProtocol + "://" + lxcDXPMainDomain
-				+ "/o/c/clientextensions/by-external-reference-code/" + erc;
+				+ BatchConstants.OBJECT_API_URL + erc;
 
 		return webClient.put()
 				.uri(apiURL)

@@ -1,12 +1,12 @@
-package com.custom.batch.client.extension.generator.app;
+package com.custom.batch.client.extension.generator;
 
 import org.json.JSONArray;
 
-public class BatchData {
+public class BatchDTO {
 	private final JSONArray items;
 	private final String className;
 
-	public BatchData(JSONArray items, String className) {
+	public BatchDTO(JSONArray items, String className) {
 		this.items = items;
 		this.className = className;
 	}

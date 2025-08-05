@@ -1,4 +1,4 @@
-package com.custom.batch.client.extension.generator.app;
+package com.custom.batch.client.extension.generator;
 
 
 import org.springframework.http.HttpHeaders;

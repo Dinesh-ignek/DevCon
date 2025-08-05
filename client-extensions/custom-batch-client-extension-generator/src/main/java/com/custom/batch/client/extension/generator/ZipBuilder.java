@@ -1,4 +1,6 @@
-package com.custom.batch.client.extension.generator.app;
+package com.custom.batch.client.extension.generator;
+
+import com.custom.batch.client.extension.generator.constant.BatchConstants;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,16 +17,11 @@ import org.json.JSONObject;
 
 public class ZipBuilder {
 
-	private static final Map<String, String> BATCH_TYPE_MAPPING = Map.of("picklist",
-			"00-picklist.batch-engine-data.json", "objectfolderdefinition", "01-objectfolder.batch-engine-data.json",
-			"userroles", "03-user-role.batch-engine-data.json", "objectdefinition",
-			"object-definition.batch-engine-data.json");
-
-	public static File build(String extensionName, Map<String, BatchData> batchDataMap, String domain, String protocol)
+	public static File build(String extensionName, Map<String, BatchDTO> batchDataMap, String domain, String protocol)
 			throws IOException {
 		File tempDir = Files.createTempDirectory("client-extension").toFile();
 		try {
-			File batchDir = new File(tempDir, "batch");
+			File batchDir = new File(tempDir, BatchConstants.BATCH);
 			if (!batchDir.exists()) {
 				batchDir.mkdirs();
 			}
@@ -55,30 +52,31 @@ public class ZipBuilder {
 		}
 	}
 
-	private static void createBatchConfigFiles(File batchDir, Map<String, BatchData> dataMap) throws IOException {
-		for (Map.Entry<String, BatchData> entry : dataMap.entrySet()) {
+	private static void createBatchConfigFiles(File batchDir, Map<String, BatchDTO> dataMap) throws IOException {
+		for (Map.Entry<String, BatchDTO> entry : dataMap.entrySet()) {
 			String type = entry.getKey();
-			String fileName = BATCH_TYPE_MAPPING.get(type);
+			String fileName = BatchConstants.getBatchFileName(type);
+
 			if (fileName == null)
 				continue;
 
-			BatchData data = entry.getValue();
+			BatchDTO data = entry.getValue();
 			File file = new File(batchDir, fileName);
-
 			JSONArray filteredItems = new JSONArray();
 
 			for (int i = 0; i < data.getItems().length(); i++) {
 				JSONObject item = data.getItems().getJSONObject(i);
+				String className = data.getClassName();
 
-				if ("com.liferay.object.admin.rest.dto.v1_0.ObjectFolder".equals(data.getClassName())) {
-
-					if ("default".equals(item.optString("externalReferenceCode"))) {
-						continue;
-					}
+				
+				if (BatchConstants.CLASS_NAME_OBJECT_DEFINITION.equals(className)
+						&& item.optBoolean("system", false)) {
+					continue;
 				}
 
-				if ("com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition".equals(data.getClassName())
-						&& item.optBoolean("system", false)) {
+				
+				if (BatchConstants.CLASS_NAME_OBJECT_FOLDER.equals(className)
+						&& "default".equals(item.optString(BatchConstants.EXTERNAL_REFERENCE_CODE))) {
 					continue;
 				}
 
@@ -90,12 +88,15 @@ public class ZipBuilder {
 
 			if (filteredItems.length() > 0) {
 				JSONObject config = new JSONObject()
-						.put("configuration",
-								new JSONObject().put("className", data.getClassName()).put("parameters",
-										new JSONObject().put("containsHeaders", "true").put("createStrategy", "UPSERT")
-												.put("onErrorFail", "false").put("updateStrategy", "UPDATE"))
-										.put("taskItemDelegateName", "DEFAULT"))
-						.put("items", filteredItems);
+					.put("configuration", new JSONObject()
+						.put("className", data.getClassName())
+						.put("parameters", new JSONObject()
+							.put("containsHeaders", "true")
+							.put("createStrategy", "UPSERT")
+							.put("onErrorFail", "false")
+							.put("updateStrategy", "UPDATE"))
+						.put("taskItemDelegateName", "DEFAULT"))
+					.put("items", filteredItems);
 
 				try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
 					writer.write(config.toString(2));
