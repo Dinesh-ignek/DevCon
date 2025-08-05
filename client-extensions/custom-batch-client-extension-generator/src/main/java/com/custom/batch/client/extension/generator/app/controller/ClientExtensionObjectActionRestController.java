@@ -2,7 +2,7 @@ package com.custom.batch.client.extension.generator.app.controller;
 
 import com.custom.batch.client.extension.generator.BatchDTO;
 import com.custom.batch.client.extension.generator.BatchDataFetcher;
-import com.custom.batch.client.extension.generator.ClientExtensionUpdater;
+import com.custom.batch.client.extension.generator.ClientExtensionObjectUpdater;
 import com.custom.batch.client.extension.generator.WebClientFactory;
 import com.custom.batch.client.extension.generator.ZipBuilder;
 import com.custom.batch.client.extension.generator.constant.BatchConstants;
@@ -29,7 +29,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @RequestMapping("/object/action")
 @RestController
-public class ObjectActionRestController extends BaseRestController {
+public class ClientExtensionObjectActionRestController extends BaseRestController {
 
 	@PostMapping
 	public ResponseEntity<String> post(@AuthenticationPrincipal Jwt jwt, @RequestBody String json) throws IOException {
@@ -46,7 +46,7 @@ public class ObjectActionRestController extends BaseRestController {
 		Map<String, BatchDTO> batchDataMap = BatchDataFetcher.fetch(webClient, batchItems);
 		File zipFile = ZipBuilder.build(extensionName, batchDataMap, lxcDXPMainDomain, lxcDXPServerProtocol);
 
-		ClientExtensionUpdater.updateClientExtension(
+		ClientExtensionObjectUpdater.updateClientExtension(
 				webClient,
 				erc,
 				extensionName,
@@ -59,5 +59,5 @@ public class ObjectActionRestController extends BaseRestController {
 		return new ResponseEntity<>(json, HttpStatus.OK);
 	}
 
-	private static final Log _log = LogFactory.getLog(ObjectActionRestController.class);
+	private static final Log _log = LogFactory.getLog(ClientExtensionObjectActionRestController.class);
 }

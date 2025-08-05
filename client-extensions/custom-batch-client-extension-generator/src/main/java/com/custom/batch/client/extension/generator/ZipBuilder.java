@@ -19,7 +19,7 @@ public class ZipBuilder {
 
 	public static File build(String extensionName, Map<String, BatchDTO> batchDataMap, String domain, String protocol)
 			throws IOException {
-		File tempDir = Files.createTempDirectory("client-extension").toFile();
+		File tempDir = Files.createTempDirectory(BatchConstants.CLIENT_EXTENSION).toFile();
 		try {
 			File batchDir = new File(tempDir, BatchConstants.BATCH);
 			if (!batchDir.exists()) {
@@ -42,15 +42,17 @@ public class ZipBuilder {
 
 	private static void createClientExtensionYaml(File dir, String name, String domain, String protocol)
 			throws IOException {
-		File yaml = new File(dir, "client-extension.yaml");
+
+		File yaml = new File(dir, BatchConstants.CLIENT_EXTENSION_YAML);
+
 		try (BufferedWriter writer = Files.newBufferedWriter(yaml.toPath(), StandardCharsets.UTF_8)) {
-			writer.write(String.format("assemble:\n" + "  - from: batch\n" + "    into: batch\n\n" + "%s:\n"
-					+ "  name: %s\n" + "  oAuthApplicationHeadlessServer: %s-oauth-application-headless-server\n"
-					+ "  type: batch\n\n" + "%s-oauth-application-headless-server:\n" + "  .serviceAddress: %s\n"
-					+ "  .serviceScheme: %s\n" + "  name: %s OAuth Application Headless Server\n"
-					+ "  type: oAuthApplicationHeadlessServer\n", name, name, name, name, domain, protocol, name));
+			writer.write(String.format(
+				BatchConstants.CLIENT_EXTENSION_YAML_TEMPLATE,
+				name, name, name, name, domain, protocol, name
+			));
 		}
 	}
+
 
 	private static void createBatchConfigFiles(File batchDir, Map<String, BatchDTO> dataMap) throws IOException {
 		for (Map.Entry<String, BatchDTO> entry : dataMap.entrySet()) {
@@ -68,35 +70,30 @@ public class ZipBuilder {
 				JSONObject item = data.getItems().getJSONObject(i);
 				String className = data.getClassName();
 
-				
 				if (BatchConstants.CLASS_NAME_OBJECT_DEFINITION.equals(className)
-						&& item.optBoolean("system", false)) {
+						&& item.optBoolean(BatchConstants.SYSTEM, false)) {
 					continue;
 				}
 
-				
 				if (BatchConstants.CLASS_NAME_OBJECT_FOLDER.equals(className)
-						&& "default".equals(item.optString(BatchConstants.EXTERNAL_REFERENCE_CODE))) {
+						&& BatchConstants.DEFAULT.equals(item.optString(BatchConstants.EXTERNAL_REFERENCE_CODE))) {
 					continue;
 				}
 
 				JSONObject cleanedItem = new JSONObject(item.toString());
-				cleanedItem.remove("actions");
+				cleanedItem.remove(BatchConstants.ACTIONS);
 
 				filteredItems.put(cleanedItem);
 			}
 
 			if (filteredItems.length() > 0) {
 				JSONObject config = new JSONObject()
-					.put("configuration", new JSONObject()
-						.put("className", data.getClassName())
-						.put("parameters", new JSONObject()
-							.put("containsHeaders", "true")
-							.put("createStrategy", "UPSERT")
-							.put("onErrorFail", "false")
-							.put("updateStrategy", "UPDATE"))
-						.put("taskItemDelegateName", "DEFAULT"))
-					.put("items", filteredItems);
+						.put("configuration",
+								new JSONObject().put("className", data.getClassName()).put("parameters",
+										new JSONObject().put("containsHeaders", "true").put("createStrategy", "UPSERT")
+												.put("onErrorFail", "false").put("updateStrategy", "UPDATE"))
+										.put("taskItemDelegateName", "DEFAULT"))
+						.put("items", filteredItems);
 
 				try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
 					writer.write(config.toString(2));

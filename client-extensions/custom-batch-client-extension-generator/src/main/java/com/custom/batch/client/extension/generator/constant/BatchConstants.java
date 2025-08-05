@@ -18,6 +18,38 @@ public class BatchConstants {
 	public static final String VALUES="values";
 	
 	public static final String BATCH="batch";
+	
+	public static final String CLIENT_EXTENSION_YAML="client-extension.yaml";
+	
+	public static final String CLIENT_EXTENSION="client-extension";
+	
+	public static final String FILE_BASE_64="fileBase64";
+	
+	public static final String NAME="name";
+	
+	public static final String FILE="file";
+	
+	public static final String DEFAULT="default";
+	
+	public static final String ACTIONS="actions";
+	
+	public static final String SYSTEM="system";
+	
+	
+	
+	public static final String CLIENT_EXTENSION_YAML_TEMPLATE = 
+			"assemble:\n" +
+			"  - from: batch\n" +
+			"    into: batch\n\n" +
+			"%s:\n" +
+			"  name: %s\n" +
+			"  oAuthApplicationHeadlessServer: %s-oauth-application-headless-server\n" +
+			"  type: batch\n\n" +
+			"%s-oauth-application-headless-server:\n" +
+			"  .serviceAddress: %s\n" +
+			"  .serviceScheme: %s\n" +
+			"  name: %s OAuth Application Headless Server\n" +
+			"  type: oAuthApplicationHeadlessServer\n";
 
 	public static final Map<String, String> BATCH_TYPE_MAPPING = Map.of(
 		"picklist", "00-picklist.batch-engine-data.json",

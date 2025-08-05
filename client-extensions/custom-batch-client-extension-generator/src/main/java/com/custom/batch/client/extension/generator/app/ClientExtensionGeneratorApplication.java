@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Import;
 
 @Import(ClientExtensionUtilSpringBootComponentScan.class)
 @SpringBootApplication
-public class BatchClientExtensionGeneratorApplication {
+public class ClientExtensionGeneratorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BatchClientExtensionGeneratorApplication.class, args);
+		SpringApplication.run(ClientExtensionGeneratorApplication.class, args);
 	}
 
 }
